@@ -15,7 +15,11 @@
       in
       {
         devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [ python3Packages.python python3Packages.virtualenv ];
+          buildInputs = with pkgs; [ 
+            python3Packages.python 
+            python3Packages.statsmodels
+            python3Packages.virtualenv 
+          ];
           shellHook = ''
             if [ ! -d ".venv" ]; then
               python -m venv .venv
