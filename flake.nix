@@ -19,6 +19,7 @@
             python3Packages.python 
             python3Packages.statsmodels
             python3Packages.virtualenv 
+            python3Packages.ipykernel
           ];
           shellHook = ''
             if [ ! -d ".venv" ]; then

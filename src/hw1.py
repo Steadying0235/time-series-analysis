@@ -4,7 +4,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
+import statsmodels.api as sm
+
 import os
+
+import constants as cs
 
 
 #
@@ -23,21 +27,19 @@ def plot_standard_t(df, size) -> None:
 
 def plot_dubuque_temp(data: pd.DataFrame, value: str) -> None:
     plt.plot(data.index, data[value], marker="o")
-    plt.ylabel("Dubuque Temperature")
-    plt.xlabel("Time")
+    plt.ylabel("Temperature (F)")
+    plt.xlabel("Time (Months)")
     plt.show()
 
 
 def main():
-    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    DATASETS = os.path.join(PROJECT_ROOT, "datasets")
     # q1.5
-    plot_standard_t(5, 48)
+    # plot_standard_t(5, 48)
 
     # q1.6
-    # tempdub = os.path.join(DATASETS, "tempdub.dat")
-    # tempdub = pd.read_csv(tempdub)
-    # plot_dubuque_temp(tempdub, "tempdub")
+    tempdub = os.path.join(cs.DATASETS, "tempdub.dat")
+    tempdub = pd.read_csv(tempdub)
+    plot_dubuque_temp(tempdub, "tempdub")
 
 
 if __name__ == "__main__":
