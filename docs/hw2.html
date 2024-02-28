@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Stat 5814 Homework 2</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="stat-5814-homework-2">Stat 5814 Homework 2</h1>
+<h2 id="34">3.4</h2>
+<h3 id="setup">setup</h3>
+<pre><code class="language-python"><span class="hljs-comment"># read the hours dataset into memory</span>
+hours = pd.read_csv(os.path.join(cs.DATASETS, <span class="hljs-string">&quot;hours.dat&quot;</span>))
+<span class="hljs-comment"># create timestamps for the data</span>
+hours.set_index(pd.date_range(<span class="hljs-string">&quot;1982-07&quot;</span>, periods=<span class="hljs-built_in">len</span>(hours.index), freq=<span class="hljs-string">&quot;M&quot;</span>), inplace=<span class="hljs-literal">True</span>)
+</code></pre>
+<h3 id="a">a</h3>
+<pre><code class="language-python"><span class="hljs-comment"># plot the data</span>
+plot_ts(hours.index, hours[<span class="hljs-string">&quot;hours&quot;</span>], <span class="hljs-string">&quot;Time (Months)&quot;</span>, <span class="hljs-string">&quot;Hours&quot;</span>, <span class="hljs-string">&quot;Plot of Hours Dataset&quot;</span>)
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.4a.png" alt="3.4a" title="3.4a"></p>
+<p>Trends are difficult to clearly see using only this plot.</p>
+<h3 id="b">b</h3>
+<pre><code class="language-python"><span class="hljs-comment"># plot the data with unique monthly markers</span>
+plot_monthly_markers(
+    hours.index, hours[<span class="hljs-string">&quot;hours&quot;</span>], <span class="hljs-string">&quot;Time (Months)&quot;</span>, <span class="hljs-string">&quot;Hours&quot;</span>, <span class="hljs-string">&quot;Plot of Hours Dataset&quot;</span>
+)
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.4b.png" alt="3.4b" title="3.4b"></p>
+<p>Using monthly markers, this data exhibits strong seasonality.
+For example, we can see that the number of hours worked always peaks in December</p>
+<h2 id="36">3.6</h2>
+<h3 id="setup-1">setup</h3>
+<pre><code class="language-python"><span class="hljs-comment"># read dataset and set timestamp</span>
+beersales = pd.read_csv(os.path.join(cs.DATASETS, <span class="hljs-string">&quot;beersales.dat&quot;</span>))
+beersales.set_index(
+    pd.date_range(<span class="hljs-string">&quot;1975-01&quot;</span>, periods=<span class="hljs-built_in">len</span>(beersales.index), freq=<span class="hljs-string">&quot;M&quot;</span>), inplace=<span class="hljs-literal">True</span>
+)
+beersales[<span class="hljs-string">&quot;month&quot;</span>] = beersales.index.month
+beersales[<span class="hljs-string">&quot;t&quot;</span>] = (beersales.index - beersales.index[<span class="hljs-number">0</span>]).days
+</code></pre>
+<h3 id="a-1">a</h3>
+<pre><code class="language-python">plot_ts(
+    beersales.index,
+    beersales[<span class="hljs-string">&quot;beersales&quot;</span>],
+    <span class="hljs-string">&quot;Time (Months)&quot;</span>,
+    <span class="hljs-string">&quot;Beer Sales (Millions of Barrels)&quot;</span>,
+    <span class="hljs-string">&quot;Millions of Barrels sold in the U.S. from 1975 - 1990&quot;</span>,
+)
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.6a.png" alt="3.6a" title="3.6a"></p>
+<p>Even without monthly markers, this data clearly exhibits a strong level of seasonality. However, we cannot easily see which months repeat.</p>
+<h3 id="b-1">b</h3>
+<pre><code class="language-python">plot_monthly_markers(
+    beersales.index,
+    beersales[<span class="hljs-string">&quot;beersales&quot;</span>],
+    <span class="hljs-string">&quot;Time (Months)&quot;</span>,
+    <span class="hljs-string">&quot;Beer Sales (Millions of Barrels)&quot;</span>,
+    <span class="hljs-string">&quot;Millions of Barrels sold in the U.S. from 1975 - 1990&quot;</span>,
+)
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.6b.png" alt="3.6b" title="3.6b"></p>
+<p>Using monthly markers, we can see that the number of beer sales peaks in the summer months and decreases in the winter months</p>
+<h3 id="c">c</h3>
+<pre><code class="language-python">model = smf.ols(<span class="hljs-string">&quot;beersales ~ C(month)&quot;</span>, data=beersales).fit()
+model.summary()
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.6c.png" alt="3.6c" title="3.6c"></p>
+<h3 id="d">d</h3>
+<pre><code class="language-python">plot_monthly_markers(beersales.index, model.resid_pearson, <span class="hljs-string">&quot;Time (Months)&quot;</span>, <span class="hljs-string">&quot;Residual&quot;</span>, <span class="hljs-string">&quot;Residual over time&quot;</span>)
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.6d.png" alt="3.6d" title="3.6d"></p>
+<p>Seasonality across years seems to be gone. Sometimes the Winter months are now on top and the Summer months are on the bottom - or vice versa. However, each year still has many rises and falls int he beer sales. Additionally, the amount of beer sold seems to be increasing with each year.</p>
+<h3 id="e">e</h3>
+<pre><code class="language-python">model = smf.ols(<span class="hljs-string">&quot;beersales ~ t + np.power(t, 2) + C(month)&quot;</span>, data=beersales).fit()
+model.summary()
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.6e.png" alt="3.6e" title="3.6e"></p>
+<h3 id="f">f</h3>
+<pre><code class="language-python">plot_monthly_markers(beersales.index, model.resid_pearson, <span class="hljs-string">&quot;Time (Months)&quot;</span>, <span class="hljs-string">&quot;Residual&quot;</span>, <span class="hljs-string">&quot;Residual over time&quot;</span>)
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.6f.png" alt="3.6f" title="3.6f"></p>
+<p>Similar to part d, the seasonal component across years is gone. However, this graph seems to have also removed the increasing trend of beer sales, leaving only the rises and falls in each year.</p>
+<h2 id="310">3.10</h2>
+<h3 id="a-2">a</h3>
+<pre><code class="language-python"><span class="hljs-comment"># create time index for estimation</span>
+hours[<span class="hljs-string">&quot;t&quot;</span>] = (hours.index - hours.index[<span class="hljs-number">0</span>]).days
+model = smf.ols(<span class="hljs-string">&quot;hours ~ t + np.power(t, 2)&quot;</span>, hours).fit()
+model.summary()
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.10a.png" alt="3.10a" title="3.10a"></p>
+<h3 id="b-2">b</h3>
+<pre><code class="language-python">plot_monthly_markers(hours.index, model.resid_pearson, <span class="hljs-string">&quot;Time (Months)&quot;</span>, <span class="hljs-string">&quot;Residuals&quot;</span>, <span class="hljs-string">&quot;Residuals over time&quot;</span>)
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.10b.png" alt="3.10b" title="3.10b"></p>
+<p>These residuals still show the same seasonality from the original hours worked dataset</p>
+<h3 id="c-1">c</h3>
+<pre><code class="language-python"><span class="hljs-comment"># 3.10 c</span>
+<span class="hljs-keyword">from</span> statsmodels.sandbox.stats.runs <span class="hljs-keyword">import</span> runstest_1samp
+
+z_score, p_value = runstest_1samp(model.resid_pearson, cutoff=<span class="hljs-number">0</span>, correction=<span class="hljs-literal">False</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;Z-score:\t <span class="hljs-subst">{z_score}</span>&#x27;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;p-value:\t <span class="hljs-subst">{p_value}</span>&#x27;</span>)
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.10c.png" alt="3.10c" title="3.10c"></p>
+<p>The low p-value corresponds to the graph of residuals from part b, indicating that the quadratic least squares model is likely not a good fit for this dataset because the seasonality is preserved.</p>
+<h3 id="d-1">d</h3>
+<pre><code class="language-python">sm.graphics.tsa.plot_acf(model.resid_pearson, lags=<span class="hljs-number">20</span>)
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.10d.png" alt="3.10d" title="3.10d"></p>
+<p>The autocorrelation functions shows that the first two lags are significant. The fourth lag also exits the boundary but may not be significant.</p>
+<h3 id="e-1">e</h3>
+<pre><code class="language-python">plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">8</span>))
+plt.hist(model.resid_pearson, edgecolor=<span class="hljs-string">&quot;black&quot;</span>)
+plt.xlabel(<span class="hljs-string">&quot;Residual&quot;</span>)
+plt.ylabel(<span class="hljs-string">&quot;Frequency&quot;</span>)
+plt.title(<span class="hljs-string">&quot;Histogram of Residuals&quot;</span>)
+plt.show()
+
+<span class="hljs-keyword">with</span> plt.rc_context(plt.rc(<span class="hljs-string">&quot;figure&quot;</span>, figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">8</span>))):
+    pp = sm.ProbPlot(model.resid_pearson)
+pp.qqplot(line=<span class="hljs-string">&quot;45&quot;</span>)
+
+plt.show()
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.10e1.png" alt="3.10e1" title="3.10e1">
+<img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.10e2.png" alt="3.10e2" title="3.10e2"></p>
+<p>The histogram appears to be slightly negatively skewed. The qq-plot seems to have more points on the top right side of the graph than it does on the bottom left.</p>
+<h2 id="312">3.12</h2>
+<h3 id="a-3">a</h3>
+<pre><code class="language-python">model = smf.ols(<span class="hljs-string">&quot;beersales ~ t + np.power(t, 2) + C(month)&quot;</span>, data=beersales).fit()
+model.summary()
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.12a.png" alt="3.12a" title="3.12a"></p>
+<h3 id="b-3">b</h3>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> statsmodels.sandbox.stats.runs <span class="hljs-keyword">import</span> runstest_1samp
+
+z_score, p_value = runstest_1samp(model.resid_pearson, cutoff=<span class="hljs-number">0</span>, correction=<span class="hljs-literal">False</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;Z-score:\t <span class="hljs-subst">{z_score}</span>&#x27;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;p-value:\t <span class="hljs-subst">{p_value}</span>&#x27;</span>)
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.12b.png" alt="3.12b" title="3.12b"></p>
+<p>The small p-value indicates that the residuals till have exhibit a trend</p>
+<h3 id="c-2">c</h3>
+<pre><code class="language-python">sm.graphics.tsa.plot_acf(model.resid_pearson, lags=<span class="hljs-number">20</span>)
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.12c.png" alt="3.12c" title="3.12c"></p>
+<p>Some of the lags around 10 exit the boundary by a pretty significant margin. This could also indicate that some trends are apparent in the residuals</p>
+<h3 id="d-2">d</h3>
+<pre><code class="language-python">plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">8</span>))
+plt.hist(model.resid_pearson, edgecolor=<span class="hljs-string">&quot;black&quot;</span>)
+plt.xlabel(<span class="hljs-string">&quot;Residual&quot;</span>)
+plt.ylabel(<span class="hljs-string">&quot;Frequency&quot;</span>)
+plt.title(<span class="hljs-string">&quot;Histogram of Residuals&quot;</span>)
+plt.show()
+
+<span class="hljs-keyword">with</span> plt.rc_context(plt.rc(<span class="hljs-string">&quot;figure&quot;</span>, figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">8</span>))):
+    pp = sm.ProbPlot(model.resid_pearson)
+pp.qqplot(line=<span class="hljs-string">&quot;45&quot;</span>)
+
+plt.show()
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.12d1.png" alt="3.12d1" title="3.12d1">
+<img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.12d2.png" alt="3.12d2" title="3.12d2"></p>
+<p>Much of the data from the qq-plot appears to follow the red line closely, indicating the residuals closely follow a normal distribution. The histogram also shows this, but additionally indicates that the data is slightly positively skewed</p>
+<h2 id="316">3.16</h2>
+<h3 id="c-3">c</h3>
+<pre><code class="language-python">num_points = <span class="hljs-built_in">int</span>((<span class="hljs-number">1</span> - (-<span class="hljs-number">1</span>)) / <span class="hljs-number">0.00001</span>) + <span class="hljs-number">1</span>
+phi = np.linspace(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, num_points)
+y = (<span class="hljs-number">1</span> + phi) / (<span class="hljs-number">1</span> - phi)
+plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">4</span>))
+plt.plot(phi, y)
+plt.xlabel(<span class="hljs-string">&quot;phi&quot;</span>)
+plt.ylabel(<span class="hljs-string">r&quot;$y = (1 + \phi) / (1-\phi)$&quot;</span>)
+plt.yscale(<span class="hljs-string">&quot;log&quot;</span>)
+</code></pre>
+<p><img src="file:////home/steven/.local/school/time-series-analysis/plots/hw2/3.16c.png" alt="3.16c" title="3.16c"></p>
+<p>The process mean appears to get much more difficult to estimate as phi tends closer to +1 or -1. This is shown by the plot trending towards infinity as phi gets close to +1, and the plot trending towards 0 as phi gets close to -1.</p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
